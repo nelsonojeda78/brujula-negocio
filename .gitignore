@@ -1,0 +1,22 @@
+# Nunca subir datos de usuarios al repositorio.
+# Los datos viven solo en el dispositivo (localStorage del navegador),
+# pero esta lista evita subirlos por error si se exportan a archivo.
+*.csv
+brujula-*.json
+datos-*.json
+libreta-*.csv
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node
+node_modules/
+npm-debug.log*

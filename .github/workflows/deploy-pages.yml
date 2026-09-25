@@ -1,0 +1,58 @@
+name: Desplegar a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar que existan los archivos de la app
+        run: |
+          set -e
+          for f in app/index.html app/app.js app/data.js app/styles.css app/sw.js app/manifest.webmanifest; do
+            [ -f "$f" ] || { echo "FALTA: $f"; exit 1; }
+            echo "OK: $f"
+          done
+
+      - name: Comprobar que data.js es JavaScript válido
+        run: node --input-type=module -e "import('./app/data.js').then(m=>console.log('data.js OK — categorías:', m.CATEGORIAS.length)).catch(e=>{console.error(e);process.exit(1)})"
+
+      - name: Inyectar la versión del commit
+        run: |
+          SHA=$(git rev-parse --short HEAD)
+          echo "Desplegando commit $SHA"
+          printf '{"commit":"%s","desplegado":"%s"}\n' "$SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > app/version.json
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empaquetar el sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./app
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

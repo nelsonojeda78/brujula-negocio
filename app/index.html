@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Brújula de Negocio — Encuentra el tipo de negocio que encaja contigo</title>
+<meta name="description" content="Test general de orientación emprendedora para jóvenes y adultos. Descubre qué categoría de negocio encaja con tu perfil, sin datos personales.">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Brújula">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<div id="offline-banner" class="offline-banner hidden">Sin conexión — la app sigue funcionando con tus datos guardados</div>
+<button id="update-toast" class="update-toast hidden">Hay una versión nueva · <span class="upd-link">Actualizar</span></button>
+
+<div class="app">
+
+  <!-- INICIO -->
+  <section id="view-inicio" class="view active">
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-emoji">🧭</div>
+      <h1 class="hero-title">Brújula<br>de Negocio</h1>
+      <p class="hero-sub">Responde sobre ti y descubre qué <b>tipo</b> de negocio encaja con tu perfil, tu capital y tu tiempo.</p>
+      <div class="hero-chips">
+        <span class="chip">👤 Jóvenes y adultos</span>
+        <span class="chip">🌍 Cualquier localidad</span>
+        <span class="chip">🔒 Sin datos personales</span>
+      </div>
+      <button class="btn btn-primary btn-lg" data-go="perfil">
+        <span>Empezar el test</span><span class="btn-arrow">→</span>
+      </button>
+      <p class="hero-note">9 preguntas · 3 minutos · sin registro</p>
+    </div>
+
+    <div class="card" id="home-resume-card" style="display:none">
+      <div class="card-head"><h2>Tu negocio elegido</h2></div>
+      <div id="home-resume"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Qué encuentras aquí</h2></div>
+      <div class="feature-grid">
+        <button class="feature" data-go="perfil"><span class="feature-ico">🎯</span>
+          <span class="feature-t">Test de perfil</span><span class="feature-d">Edad, zona, capital, tiempo, afinidades y habilidades</span></button>
+        <button class="feature" data-go="categorias"><span class="feature-ico">🗂️</span>
+          <span class="feature-t">10 categorías</span><span class="feature-d">Tipos de negocio con requisitos, riesgos y qué aprender</span></button>
+        <button class="feature" data-go="cuentas"><span class="feature-ico">🧮</span>
+          <span class="feature-t">Tus números</span><span class="feature-d">Costo, precio, margen y punto de equilibrio</span></button>
+        <button class="feature" data-go="precios"><span class="feature-ico">🔍</span>
+          <span class="feature-t">3 precios</span><span class="feature-d">Compara 3 fuentes reales y saca la mediana</span></button>
+        <button class="feature" data-go="plan90"><span class="feature-ico">🗓️</span>
+          <span class="feature-t">Plan de 90 días</span><span class="feature-d">Entender, Verificar, Probar, Decidir</span></button>
+        <button class="feature" data-go="libreta"><span class="feature-ico">📒</span>
+          <span class="feature-t">Libreta</span><span class="feature-d">Registra lo que entra y sale, con exportación</span></button>
+        <button class="feature" data-go="pilares"><span class="feature-ico">🏛️</span>
+          <span class="feature-t">6 pilares</span><span class="feature-d">Lo que hay que resolver antes de invertir</span></button>
+        <button class="feature" data-go="privacidad"><span class="feature-ico">🔐</span>
+          <span class="feature-t">Privacidad</span><span class="feature-d">Qué se guarda, dónde y qué nunca se pide</span></button>
+      </div>
+    </div>
+
+    <div class="card card-warn">
+      <div class="card-head"><h2>⚠️ Lee esto antes de empezar</h2></div>
+      <div id="home-aviso"></div>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section id="view-perfil" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Tu perfil</h1>
+        <p class="page-sub">Ninguna pregunta pide datos personales. Todo se queda en tu dispositivo.</p></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div id="perfil-progress" class="progress-fill"></div></div>
+      <span id="perfil-progress-label" class="progress-label">0 / 9</span>
+    </div>
+    <div id="perfil-body"></div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="view-resultado" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="perfil">←</button>
+      <div><h1>Tu orientación</h1></div>
+    </div>
+    <div id="resultado-body"></div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section id="view-categorias" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Las 10 categorías</h1>
+        <p class="page-sub">Tipos generales de negocio. Ninguna es una idea concreta.</p></div>
+    </div>
+    <div id="cat-nota"></div>
+    <div id="cat-list"></div>
+  </section>
+
+  <!-- DETALLE -->
+  <section id="view-detalle" class="view"><div id="detalle-body"></div></section>
+
+  <!-- CUENTAS -->
+  <section id="view-cuentas" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Tus números</h1><p class="page-sub">Los pilares 1, 2, 4 y 6 en una sola página.</p></div>
+    </div>
+    <div id="cuentas-body"></div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="view-precios" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Comparador de 3 precios</h1><p class="page-sub">El precio real se levanta en tu zona, no se inventa.</p></div>
+    </div>
+    <div id="precios-body"></div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="view-plan90" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Plan de 90 días</h1><p class="page-sub">Entender · Verificar · Probar · Decidir</p></div>
+    </div>
+    <div id="plan90-body"></div>
+  </section>
+
+  <!-- LIBRETA -->
+  <section id="view-libreta" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Libreta</h1><p class="page-sub">Registrar todos los días es el hábito que sostiene todo lo demás.</p></div>
+    </div>
+    <div id="libreta-body"></div>
+  </section>
+
+  <!-- PILARES -->
+  <section id="view-pilares" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Los 6 pilares</h1></div>
+    </div>
+    <div id="pilares-body"></div>
+  </section>
+
+  <!-- PRIVACIDAD -->
+  <section id="view-privacidad" class="view">
+    <div class="page-head">
+      <button class="btn-back" data-go="inicio">←</button>
+      <div><h1>Privacidad y alcance</h1></div>
+    </div>
+    <div id="privacidad-body"></div>
+  </section>
+
+</div>
+
+<nav class="tabbar">
+  <button class="tab active" data-go="inicio"><span>🏠</span><i>Inicio</i></button>
+  <button class="tab" data-go="perfil"><span>🎯</span><i>Test</i></button>
+  <button class="tab" data-go="categorias"><span>🗂️</span><i>Categorías</i></button>
+  <button class="tab" data-go="plan90"><span>🗓️</span><i>Plan</i></button>
+  <button class="tab" data-go="libreta"><span>📒</span><i>Libreta</i></button>
+</nav>
+
+<div id="modal-root"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
