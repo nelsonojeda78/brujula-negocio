@@ -8,7 +8,7 @@ sus requisitos, riesgos, lo que necesitas aprender y lo que debes verificar.
 **App en línea:** https://nelsonojeda78.github.io/brujula-negocio/
 
 > Este repositorio es independiente. Toma como referencia la estructura del
-> aplicativo *Mi Primer Negocio* (hecho para un caso específico en Macará, Loja),
+> aplicativo *Mi Primer Negocio* (hecho para un caso específico),
 > pero su catálogo, su motor de afinidad y su público son distintos y generales.
 
 ---
@@ -17,10 +17,10 @@ sus requisitos, riesgos, lo que necesitas aprender y lo que debes verificar.
 
 | | Mi Primer Negocio | Brújula de Negocio |
 |---|---|---|
-| Público | Un adolescente de 16 años en Macará | Jóvenes y adultos, cualquier localidad |
+| Público | Un adolescente de 16 años | Jóvenes y adultos, cualquier localidad |
 | Entrada | Test fijo de 9 preguntas | Perfil configurable: edad, zona, género, capital, tiempo, afinidades, habilidades, intereses, condiciones |
 | Salida | 9 ideas de negocio concretas | **10 categorías generales**, sin ideas concretas |
-| Localidad | Macará, Loja (fija) | Se pregunta por tamaño y tipo de zona; nunca ubicación exacta |
+| Localidad | Ciudad | Se pregunta por tamaño y tipo de zona; nunca ubicación exacta |
 
 **No entrega ideas de negocio concretas.** Entrega el *tipo* de negocio y el método
 para que cada persona lo aterrice en su propio contexto. Esa fue una decisión de
